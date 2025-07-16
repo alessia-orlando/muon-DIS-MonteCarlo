@@ -8,6 +8,8 @@ geo = SndlhcGeo.GeoInterface("/eos/experiment/sndlhc/users/fmei/muons_with_box/g
 scifi = geo.snd_geo.Scifi # SciFi geometry
 cbmsim = ROOT.TChain("cbmsim")
 
+print(scifi.scifi_separation)
+
 n_files_to_read = 5
 for i in range (n_files_to_read):
     file_name = file_path+str(i)+"_dig.root"
@@ -53,13 +55,19 @@ for i_event, event in enumerate(cbmsim):
         start_y = incoming_mu.GetStartY()
         start_z = incoming_mu.GetStartZ()
 
+        
         starting_station = -1
         for i in range(5):
-            z_starting_station = getattr(scifi, f"Ypos{i}") 
-            if z_starting_station - 2 <= start_z <= z_starting_station + 2:
-                starting_station = i
-                break
-
+            z_pos = getattr(scifi, f"Ypos{i}")
+            if i == 0:
+                if z_pos - 10 < start_z < z_pos:
+                    starting_station = i
+                    break
+            else:
+                z_pos_prev = getattr(scifi, f"Ypos{i - 1}")
+                if z_pos_prev + scifi.zdim < start_z < z_pos:
+                    starting_station = i
+                    break
         if starting_station != -1:
             h_scifi_starting_station.Fill(starting_station)
         
