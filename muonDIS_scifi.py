@@ -8,8 +8,6 @@ geo = SndlhcGeo.GeoInterface("/eos/experiment/sndlhc/users/fmei/muons_with_box/g
 scifi = geo.snd_geo.Scifi # SciFi geometry
 cbmsim = ROOT.TChain("cbmsim")
 
-print(scifi.scifi_separation)
-
 n_files_to_read = 5
 for i in range (n_files_to_read):
     file_name = file_path+str(i)+"_dig.root"
