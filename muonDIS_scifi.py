@@ -3,9 +3,10 @@ import shipLHC_conf as sndDet_conf
 import SndlhcGeo
 from os.path import exists
 
-file_path = "/eos/experiment/sndlhc/users/fmei/muons_with_box/geant4_output/sndLHC.muonDIS-TGeant4-muonDis_"
 geo = SndlhcGeo.GeoInterface("/eos/experiment/sndlhc/users/fmei/muons_with_box/geant4_output/geofile_full.muonDIS-TGeant4-muonDis_0.root")
 scifi = geo.snd_geo.Scifi # SciFi geometry
+nscifi = scifi.nscifi
+file_path = "/eos/experiment/sndlhc/users/fmei/muons_with_box/geant4_output/sndLHC.muonDIS-TGeant4-muonDis_"
 cbmsim = ROOT.TChain("cbmsim")
 
 n_files_to_read = 5
@@ -34,7 +35,7 @@ h_scifi_starting_station = ROOT.TH1D("h_scifi_starting_station", "Starting SciFi
 
 # NUMBER OF HITS
 h_scifi_hits = ROOT.TH1D("h_scifi_hits", "Number of Scifi hits; # hits", 30, 0, 30)
-h_scifi_stations = ROOT.TH1D("h_scifi_stations", "Scifi hits per station; SciFi Station", 6, 0, 6)
+h_scifi_hits_stations = ROOT.TH1D("h_scifi_hits_stations", "Scifi hits per station; SciFi Station", 6, 0, 6)
 
 # QDC
 h_scifi_qdc = ROOT.TH1D("h_scifi_qdc", "SciFi signal; QDC", 200, -2, 20)
@@ -53,9 +54,8 @@ for i_event, event in enumerate(cbmsim):
         start_y = incoming_mu.GetStartY()
         start_z = incoming_mu.GetStartZ()
 
-        
         starting_station = -1
-        for i in range(5):
+        for i in range(nscifi):
             z_pos = getattr(scifi, f"Ypos{i}")
             if i == 0:
                 if z_pos - 10 < start_z < z_pos:
@@ -69,12 +69,9 @@ for i_event, event in enumerate(cbmsim):
         if starting_station != -1:
             h_scifi_starting_station.Fill(starting_station)
         
-        hits_per_station = set()
-        
-
         for scifihit in event.Digi_ScifiHits:
             station = scifihit.GetStation()
-            hits_per_station.add(station)
+            h_scifi_hits_stations.Fill(station)
             if scifihit.GetSignal() > -999: # hit SiPM
                 h_scifi_qdc.Fill(scifihit.GetSignal())
 
@@ -88,8 +85,6 @@ for i_event, event in enumerate(cbmsim):
         h_incoming_z.Fill(incoming_mu.GetStartZ())
 
         h_scifi_hits.Fill(n_scifi_hits)
-        for station in hits_per_station:
-            h_scifi_stations.Fill(station)
 
         h_scifi_energy_loss.Fill(scifi_energy_loss)
 
@@ -113,9 +108,9 @@ c_scifi_hits = ROOT.TCanvas("c_scifi_hits")
 h_scifi_hits.Draw()
 c_scifi_hits.Draw()
 
-c_scifi_stations = ROOT.TCanvas("c_scifi_stations")
-h_scifi_stations.Draw()
-c_scifi_stations.Draw()
+c_scifi_hits_stations = ROOT.TCanvas("c_scifi_hits_stations")
+h_scifi_hits_stations.Draw()
+c_scifi_hits_stations.Draw()
 
 c_scifi_qdc = ROOT.TCanvas("c_scifi_qdc")
 h_scifi_qdc.Draw()
@@ -133,7 +128,7 @@ h_incoming_z.Write()
 h_scifi_starting_station.Write()
 
 h_scifi_hits.Write()
-h_scifi_stations.Write()
+h_scifi_hits_stations.Write()
 h_scifi_qdc.Write()
 
 h_scifi_energy_loss.Write()
