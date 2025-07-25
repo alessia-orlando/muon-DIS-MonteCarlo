@@ -42,7 +42,7 @@ The features of the digitized data which will be used to predict the starting st
 ### Data preparation and Dataset exploration
 In order to be used in the Random Forest Classifier, data must be converted in a .csv format. Looping over the selected event as it was done previously, the data.py file writes the starting station of each event (target) and the features mentioned above as columns and stores them inside the data.csv file.
 
-The dataset can now be explored in plots.ipynb using pandas and matplotlib The characteristics of the dataset can be directly visualized in the Jupyter Notebook plots.ipynb`. 
+The dataset can now be explored in plots.ipynb using pandas and matplotlib.
 
 ## Random Forest Classifier
 After preparing and checking the data, it is possible to classify the events and predict if the muon track started in the SciFi target and, if so, in which station. For this we use Random Forest, i.e. a machine learning model that builds multiple decision trees, trains them on a random subset of the data, and combines their predictions. To build and train the Random Forest in random_forest.ipynb, we use the `RandomForestClassifier` from the scikit-learn library. The classifier provides:
