@@ -55,12 +55,12 @@ for i_event, event in enumerate(cbmsim):  # loop over events
             z_pos = getattr(scifi, f"Ypos{i}")
             if i == 0:  # first SciFi station
                 if z_pos - 10 < start_z < z_pos:
-                    starting_station = i
+                    starting_station = i + 1
                     break
             else:
                 z_pos_prev = getattr(scifi, f"Ypos{i - 1}")
                 if z_pos_prev + scifi.zdim < start_z < z_pos:
-                    starting_station = i
+                    starting_station = i + 1
                     break
         if starting_station != -1:
             h_scifi_starting_station.Fill(starting_station)
