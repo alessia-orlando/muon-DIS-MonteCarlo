@@ -45,3 +45,4 @@ In order to be used in the Random Forest Classifier, data must be converted in a
 The dataset can now be explored using python libraries `pandas` and `matplotlib`. From now on, sndsw will no longer be needed. The characteristics of the dataset can be directly visualized in the Jupyter Notebook `plots.ipynb`. 
 
 ## Random Forest Classifier
+After preparing and checking the data, it is possible to classify the events and predict if the muon track started in the SciFi target and, if so, in which station. For this we use Random Forest, i.e. a machine learning alogorithm 
