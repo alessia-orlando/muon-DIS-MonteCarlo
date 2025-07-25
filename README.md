@@ -26,11 +26,11 @@ The MC data are generated in a two-step process involving Pythia 6 (physics proc
 - Digi_ScifiHits: branch containing digitized hits in the SciFi detector.
 
 In muonDIS_scifi.py we select events with at least one hit in the SciFi tracker; after this requirement we have 888 muon events. From the MCTrack we can obtain the starting coordinates of the event; in particular, taking the starting Z coordinate (along the beam axis) we can associate it to one of the five SciFi stations using SndlhcGeo and the geofile, in which informations about the geometry of the detector are stored. A track starts in a given station {i} if its starting Z coordinate is between the stations {i} and {i-1}. As for the first SciFi station, since there is only a wall in front of it and no other station, a track starts here if its starting Z coordinate is between the first station and the 10 cm before it. Values for the starting station can be:
-- 0 if the track starts in station 1;
-- 1 if the track starts in station 2;
-- 2 if the track starts in station 3;
-- 3 if the track starts in station 4;
-- 4 if the track starts in station 5;
+- 1 if the track starts in station 1;
+- 2 if the track starts in station 2;
+- 3 if the track starts in station 3;
+- 4 if the track starts in station 4;
+- 5 if the track starts in station 5;
 - -1 if the track does not start in the SciFi system.
   
 The features of the digitized data which will be used to predict the starting station of the muons are:
