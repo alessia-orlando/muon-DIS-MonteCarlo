@@ -5,11 +5,11 @@ from os.path import exists
 import csv
 
 geo = SndlhcGeo.GeoInterface("/eos/experiment/sndlhc/users/fmei/muons_with_box/geant4_output/geofile_full.muonDIS-TGeant4-muonDis_0.root")
-scifi = geo.snd_geo.Scifi
+scifi = geo.snd_geo.Scifi  # SciFi geometry
 scifi_mod = geo.modules['Scifi']
-nscifi = scifi.nscifi
+nscifi = scifi.nscifi  # number of SciFi stations
 file_path = "/eos/experiment/sndlhc/users/fmei/muons_with_box/geant4_output/sndLHC.muonDIS-TGeant4-muonDis_"
-cbmsim = ROOT.TChain("cbmsim")
+cbmsim = ROOT.TChain("cbmsim")  # chain TTrees from different files
 
 n_files_to_read = 5
 for i in range (n_files_to_read):
@@ -18,6 +18,7 @@ for i in range (n_files_to_read):
         continue
     this_read = cbmsim.Add(file_name)
 
+# create the .csv file
 with open("data.csv", mode='w', newline='') as csvfile:
     writer = csv.writer(csvfile)
 
@@ -32,16 +33,16 @@ with open("data.csv", mode='w', newline='') as csvfile:
 
     A, B = ROOT.TVector3(), ROOT.TVector3()
     
-    for i_event, event in enumerate(cbmsim):
+    for i_event, event in enumerate(cbmsim):  # loop over events
         if len(cbmsim.MCTrack) == 0: continue
         n_scifi_hits = len(event.Digi_ScifiHits)
 
-        if n_scifi_hits >= 1:
+        if n_scifi_hits >= 1:  # select events with at least one hit in SciFi
             
             hits_per_station = {}
             qdc_per_station = {}
-            min_per_station = {}
-            max_per_station = {}
+            min_per_station = {}  # minimum hit position in a station
+            max_per_station = {}  # maximum hit position in a station
             l = {}
 
             incoming_mu = event.MCTrack[0]
@@ -71,11 +72,11 @@ with open("data.csv", mode='w', newline='') as csvfile:
                         l[f"scifi_{i+1}_x"] = 0
                         l[f"scifi_{i+1}_y"] = 0
                 
-            for scifihit in event.Digi_ScifiHits:
+            for scifihit in event.Digi_ScifiHits:  # loop over hits
                 station = scifihit.GetStation()
                 qdc = scifihit.GetSignal()
 
-                if scifihit.isVertical():
+                if scifihit.isVertical():  # vertical: features on the x direction
                     hits_per_station[f"scifi_{station}_x"] += 1
                     scifi_mod.GetSiPMPosition(scifihit.GetDetectorID(), A, B)
                     if A.X() > max_per_station[f"scifi_{station}_x"]:
@@ -84,7 +85,7 @@ with open("data.csv", mode='w', newline='') as csvfile:
                         min_per_station[f"scifi_{station}_x"] = A.X()
                     if qdc > -999: # hit SiPM
                         qdc_per_station[f"scifi_{station}_x"] += qdc
-                else:
+                else:  # horizontal: features on the y direction
                     hits_per_station[f"scifi_{station}_y"] += 1
                     scifi_mod.GetSiPMPosition(scifihit.GetDetectorID(), A, B)
                     if A.Y() > max_per_station[f"scifi_{station}_y"]:
@@ -97,12 +98,12 @@ with open("data.csv", mode='w', newline='') as csvfile:
                     for i in range(nscifi):
                         diff_x = max_per_station[f"scifi_{i+1}_x"] - min_per_station[f"scifi_{i+1}_x"] 
                         if diff_x != float("-inf") and diff_x != float("inf"):
-                            l[f"scifi_{i+1}_x"] = diff_x
+                            l[f"scifi_{i+1}_x"] = diff_x  # shower width in x direction
                         else:
                             l[f"scifi_{i+1}_x"] = 0
                         diff_y = max_per_station[f"scifi_{i+1}_y"] - min_per_station[f"scifi_{i+1}_y"]
                         if diff_y != float("-inf") and diff_y != float("inf"):
-                            l[f"scifi_{i+1}_y"] = diff_y
+                            l[f"scifi_{i+1}_y"] = diff_y  # shower width in y direction
                         else:
                             l[f"scifi_{i+1}_y"] = 0
         
