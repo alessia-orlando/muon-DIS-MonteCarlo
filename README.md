@@ -15,17 +15,17 @@ To setup this repository and run the code:
    git clone https://github.com/alessia-orlando/muon-DIS-MonteCarlo
    cd muon-DIS-MonteCarlo
     ```
-3. Setup the source environment to use sndsw (an SND@LHC computing account is needed)
+3. Setup the source environment to use sndsw
    ```
    source //eos/experiment/sndlhc/users/gpsndlhc/setup_for_box.sh
    ```
 ## The Data
 ### Data exploration
-The MC data are generated in a two-step process involving Pythia6 and Geant4 and stored in a ROOT TTree file. The branches of the TTree used in this project are:
+The MC data are generated in a two-step process involving Pythia 6 (physics process) and Geant4 (detector response) and stored in a ROOT TTree file. The branches of the TTree used in this project are:
 - MCTrack: branch containing informations about the simulated muon track (MonteCarlo truth).
 - Digi_ScifiHits: branch containing digitized hits in the SciFi detector.
 
-In `muonDIS_scifi.py` we select events with at least one hit in the SciFi tracker; after this requirement we have 888 muon events. From the MCTrack we can obtain the starting coordinates of the event; in particular, taking the starting Z coordinate (along the beam axis) we can associate it to one of the five SciFi stations using `SndlhcGeo` and the geofile, in which informations about the geometry of the detector are stored. Values for the starting station can be:
+In muonDIS_scifi.py we select events with at least one hit in the SciFi tracker; after this requirement we have 888 muon events. From the MCTrack we can obtain the starting coordinates of the event; in particular, taking the starting Z coordinate (along the beam axis) we can associate it to one of the five SciFi stations using SndlhcGeo and the geofile, in which informations about the geometry of the detector are stored. Values for the starting station can be:
 - 1 if the track starts in station 1;
 - 2 if the track starts in station 2;
 - 3 if the track starts in station 3;
@@ -34,15 +34,17 @@ In `muonDIS_scifi.py` we select events with at least one hit in the SciFi tracke
 - -1 if the track does not start in the SciFi system.
   
 The features of the digitized data which will be used to predict the starting station of the muons are:
-- Number of hits in each station;
-- QDC/hit in each station;
-- Horizontal shower width L_x in each station;
-- Vertical shower width L_y in each station.
+- Number of hits per station;
+- QDC/hit per station;
+- Horizontal shower width L_x per station;
+- Vertical shower width L_y per station.
 
 ### Data preparation and Dataset exploration
-In order to be used in the Random Forest Classifier, data must be converted in a `.csv` format. Looping over the selected event as it was done previously, the `data.py` file writes the starting station of each event (target) and the features mentioned above as columns and stores them inside the `data.csv` file.
+In order to be used in the Random Forest Classifier, data must be converted in a .csv format. Looping over the selected event as it was done previously, the data.py file writes the starting station of each event (target) and the features mentioned above as columns and stores them inside the data.csv file.
 
-The dataset can now be explored using python libraries `pandas` and `matplotlib`. From now on, sndsw will no longer be needed. The characteristics of the dataset can be directly visualized in the Jupyter Notebook `plots.ipynb`. 
+The dataset can now be explored in plots.ipynb using pandas and matplotlib The characteristics of the dataset can be directly visualized in the Jupyter Notebook plots.ipynb`. 
 
 ## Random Forest Classifier
-After preparing and checking the data, it is possible to classify the events and predict if the muon track started in the SciFi target and, if so, in which station. For this we use Random Forest, i.e. a machine learning alogorithm 
+After preparing and checking the data, it is possible to classify the events and predict if the muon track started in the SciFi target and, if so, in which station. For this we use Random Forest, i.e. a machine learning model that builds multiple decision trees, trains them on a random subset of the data, and combines their predictions. To build and train the Random Forest in random_forest.ipynb, we use the `RandomForestClassifier` from the scikit-learn library. The classifier provides:
+- `.fit(X_train, y_train)` to train the model on the data. It builds all the decision trees using the features and the target;
+- `.predict(X_test)` to make predictions using the trained model. It passes each input sample down every tree in the forest and uses a majority vote to assign a prediction.
