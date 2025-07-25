@@ -25,7 +25,15 @@ The MC data are generated in a two-step process involving Pythia6 and Geant4 and
 - MCTrack: branch containing informations about the simulated muon track (MonteCarlo truth).
 - Digi_ScifiHits: branch containing digitized hits in the SciFi detector.
 
-In `muonDIS_scifi.py` we select events with at least one hit in the SciFi tracker; after this requirement we have 888 muon events. The features which will be used to predict the starting station (station in which the track originates) of the muons are:
+In `muonDIS_scifi.py` we select events with at least one hit in the SciFi tracker; after this requirement we have 888 muon events. In particular, we will consider the starting station of each track and other features. The starting station is derived from MCTrack, taking the starting Z coordinate (along the beam axis) and assigning it to one of the stations using `SndlhcGeo` and the geofile, in which informations about the geometry of the detector are stored. Values for the starting station can be:
+- 1 if the track starts in station 1;
+- 2 if the track starts in station 2;
+- 3 if the track starts in station 3;
+- 4 if the track starts in station 4;
+- 5 if the track starts in station 5;
+- -1 if the track does not start in the SciFi system.
+  
+The features which will be used to predict the starting station of the muons are:
 - Number of hits in each station;
 - QDC/hit in each station;
 - Horizontal shower width L_x in each station;
