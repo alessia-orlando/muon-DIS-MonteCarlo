@@ -2,7 +2,7 @@
 
 In this project, we will analyse the data from the MonteCarlo simulation of muons Deep Inelastic Scattering (DIS) in the SND@LHC detector. These kind of events represent one of the main backgrounds in the search of neutrinos arising from the decay of particles produced in the proton-proton collisions at LHC. In particular, we will focus on the events in the SciFi system of the detector. The system represents the electronic part of the tracker and consists of five scintillating fibre stations. For the analysis of the simulated data, sndsw will be used (https://github.com/SND-LHC/sndsw).
 
-The aim is to use a Random Forest Classifier to predict the starting SciFi station of a simulated muon based on some features which will be discussed in detail. 
+The final goal is to use a Random Forest Classifier to predict the SciFi station in which a simulated muon track starts based on some features which will be discussed in detail. 
 
 ## Setup
 To setup this repository and run the code:
