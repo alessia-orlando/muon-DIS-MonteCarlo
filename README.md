@@ -25,7 +25,7 @@ The MC data are generated in a two-step process involving Pythia6 and Geant4 and
 - MCTrack: branch containing informations about the simulated muon track (MonteCarlo truth).
 - Digi_ScifiHits: branch containing digitized hits in the SciFi detector.
 
-In `muonDIS_scifi.py` we select events with at least one hit in the SciFi tracker; after this requirement we have 888 muon events. In particular, we will consider the starting station of each track and other features. The starting station is derived from MCTrack, taking the starting Z coordinate (along the beam axis) and assigning it to one of the stations using `SndlhcGeo` and the geofile, in which informations about the geometry of the detector are stored. Values for the starting station can be:
+In `muonDIS_scifi.py` we select events with at least one hit in the SciFi tracker; after this requirement we have 888 muon events. From the MCTrack we can obtain the starting coordinates of the event; in particular, taking the starting Z coordinate (along the beam axis) we can associate it to one of the five SciFi stations using `SndlhcGeo` and the geofile, in which informations about the geometry of the detector are stored. Values for the starting station can be:
 - 1 if the track starts in station 1;
 - 2 if the track starts in station 2;
 - 3 if the track starts in station 3;
@@ -33,7 +33,7 @@ In `muonDIS_scifi.py` we select events with at least one hit in the SciFi tracke
 - 5 if the track starts in station 5;
 - -1 if the track does not start in the SciFi system.
   
-The features which will be used to predict the starting station of the muons are:
+The features of the digitized data which will be used to predict the starting station of the muons are:
 - Number of hits in each station;
 - QDC/hit in each station;
 - Horizontal shower width L_x in each station;
@@ -42,7 +42,6 @@ The features which will be used to predict the starting station of the muons are
 ### Data preparation and Dataset exploration
 In order to be used in the Random Forest Classifier, data must be converted in a `.csv` format. Looping over the selected event as it was done previously, the `data.py` file writes the starting station of each event (target) and the features mentioned above as columns and stores them inside the `data.csv` file.
 
-The dataset can now be explored using python libraries `pandas` and `matplotlib`. From now on, sndsw will no longer be needed. The characteristics of our data can be directly visualized in the Jupyter Notebook `plots.ipynb`.
+The dataset can now be explored using python libraries `pandas` and `matplotlib`. From now on, sndsw will no longer be needed. The characteristics of the dataset can be directly visualized in the Jupyter Notebook `plots.ipynb`. 
 
 ## Random Forest Classifier
-
