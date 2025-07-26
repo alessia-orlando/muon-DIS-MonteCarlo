@@ -22,17 +22,23 @@ In muonDIS_scifi.py we select events with at least one hit in the SciFi tracker;
   
 The features of the digitized data which will be used to predict the starting station of the muons are:
 - Number of hits per station;
-- QDC/hit per station;
+- QDC/hit per station (QDC measures the integrated charge of the analog signal produced by the SiPM);
 - Horizontal shower width L_x per station;
 - Vertical shower width L_y per station.
+
+As an example, the plot below shows the distribution of the starting station of the muon tracks.
+
+<img width="995" height="602" alt="Schermata del 2025-07-25 20-03-59" src="https://github.com/user-attachments/assets/e7b07fdf-83df-43f0-a346-456a81d35472" />
 
 ### Data preparation and Dataset exploration
 In order to be used in the Random Forest Classifier, data must be converted in a .csv format. Looping over the selected event as it was done previously, the data.py file writes the starting station of each event (target) and the features mentioned above as columns and stores them inside the data.csv file.
 
-The dataset can now be explored in plots.ipynb using pandas and matplotlib. Additional details are in the Jupyter Notebook.
+In the plots.ipynb notebook we explore the characteristics of the dataset. Besides checking the most important informations, such as shape, data types and missing values, we can also plot the distributions for each column and the relationship between the features via a correlation matrix.
 
 ## Random Forest Classifier
-After preparing and checking the data, it is possible to classify the events and predict if the muon track started in the SciFi target and, if so, in which station. For this we use Random Forest, i.e. a machine learning model that builds multiple decision trees, trains them on a random subset of the data, and combines their predictions. To build and train the Random Forest in random_forest.ipynb, we use the `RandomForestClassifier` from the scikit-learn library. The data is split in the training and test sets:
+After preparing and checking the data, it is possible to classify the events and predict if the muon track started in the SciFi target and, if so, in which station. For this we use Random Forest, i.e. a machine learning model that builds multiple decision trees, trains them on a random subset of the data, and combines their predictions. To build and train the Random Forest in random_forest.ipynb, we use the `RandomForestClassifier` from the scikit-learn library.
+
+The data is split in the training and test sets:
 - Training set: this portion of the data (80%) is used to train the model;
 - Test set: this portion of the data (20%) is not used during the training, but it is used to evaluate the model's performance after the training.
 
@@ -42,7 +48,7 @@ The classifier provides:
 
 At the end, starting from the features, the model will be able to predict where the muon interaction takes place. In this case, the accuracy of the predictions is about 88%. 
 
-Additional details are in the Jupyter Notebook.
+In the random_forest.ipynb notebook we preprocess the data, defining the feature columns X and the target column y, and split it into training and test sets. Using the scikit-learn class RandomizedSearchCV, we can find the best hyperparameters for the model within a given range and fit the best model to our data.
 
 ## Run instructions
 ### Setup, data exploration and preparation (on lxplus)
