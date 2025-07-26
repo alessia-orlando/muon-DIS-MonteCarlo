@@ -38,15 +38,15 @@ The classifier provides:
 - `.fit(X_train, y_train)` to train the model on the data. It builds all the decision trees using the features and the target;
 - `.predict(X_test)` to make predictions using the trained model. It passes each input sample down every tree in the forest and uses a majority vote to assign a prediction.
 
-At the end, starting from the features, the model will be able to predict where the muon interaction of the detector takes place. In this case, the accuracy of the predictions is about 88%. 
+At the end, starting from the features, the model will be able to predict where the muon interaction takes place. In this case, the accuracy of the predictions is about 88%. 
 
 Additional details are in the Jupyter Notebook.
 
 ## Run instructions
-# Setup, data exploration and preparation
+# Setup, data exploration and preparation (on lxplus)
 1. Log into lxplus
     ```
-   ssh yourusername@lxplus.cern.ch
+   ssh username@lxplus.cern.ch
     ```
 2. Clone this repository
     ```
