@@ -43,7 +43,7 @@ At the end, starting from the features, the model will be able to predict where 
 Additional details are in the Jupyter Notebook.
 
 ## Run instructions
-# Setup, data exploration and preparation (on lxplus)
+### Setup, data exploration and preparation (on lxplus)
 1. Log into lxplus
     ```
    ssh username@lxplus.cern.ch
@@ -69,7 +69,7 @@ A ROOT file muonDIS_scifi_plots.py will be created; all the histograms are conta
    ```
    The file data.csv will be created.
 
-# Dataset exploration and Random Forest Classifier (locally)
+### Dataset exploration and Random Forest Classifier (locally)
 1. Clone the repository locally
    ```
    git clone https://github.com/alessia-orlando/muon-DIS-MonteCarlo
