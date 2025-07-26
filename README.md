@@ -31,12 +31,14 @@ The dataset can now be explored in plots.ipynb using pandas and matplotlib. Addi
 
 ## Random Forest Classifier
 After preparing and checking the data, it is possible to classify the events and predict if the muon track started in the SciFi target and, if so, in which station. For this we use Random Forest, i.e. a machine learning model that builds multiple decision trees, trains them on a random subset of the data, and combines their predictions. To build and train the Random Forest in random_forest.ipynb, we use the `RandomForestClassifier` from the scikit-learn library. The data is split in the training and test sets:
-- Training set: this portion of the data is used to train the model;
-- Test set: this portion is not used during the train, but it is used to evaluate the model's performance after the training.
+- Training set: this portion of the data (80%) is used to train the model;
+- Test set: this portion of the data (20%) is not used during the training, but it is used to evaluate the model's performance after the training.
 
 The classifier provides: 
 - `.fit(X_train, y_train)` to train the model on the data. It builds all the decision trees using the features and the target;
 - `.predict(X_test)` to make predictions using the trained model. It passes each input sample down every tree in the forest and uses a majority vote to assign a prediction.
+
+At the end, starting from the features, the model will be able to predict where the muon interaction of the detector takes place. In this case, the accuracy of the predictions is about 88%. 
 
 Additional details are in the Jupyter Notebook.
 
