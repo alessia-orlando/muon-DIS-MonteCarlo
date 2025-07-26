@@ -40,7 +40,7 @@ After preparing and checking the data, it is possible to classify the events and
 
 The data is split in the training and test sets:
 - Training set: this portion of the data (80%) is used to train the model;
-- Test set: this portion of the data (20%) is not used during the training, but it is used to evaluate the model's performance after the training.
+- Test set: this portion of the data (20%) is not used during the training, but it is used to evaluate the performance of the model after the training.
 
 The classifier provides: 
 - `.fit(X_train, y_train)` to train the model on the data. It builds all the decision trees using the features and the target;
