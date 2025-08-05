@@ -1,6 +1,6 @@
 # muon-DIS-MonteCarlo
 
-In this project, we will analyse the data from the MonteCarlo simulation of muons Deep Inelastic Scattering (DIS) in the SND@LHC detector. These kind of events represent one of the main backgrounds in the search of neutrinos arising from the decay of particles produced in the proton-proton collisions at LHC. In particular, we will focus on the events in the SciFi system of the detector, which consists of five scintillating fibre stations. The stations are alternated with Emulsion Cloud Chambers walls, and together they represent the tracking system of the detector. For the analysis of the simulated data, sndsw will be used (https://github.com/SND-LHC/sndsw).
+In this project, we will analyse the data from the MonteCarlo simulation of muons Deep Inelastic Scattering (DIS) in the SND@LHC detector. These kind of events represent one of the main backgrounds in the search of neutrinos arising from the decay of particles produced in the proton-proton collisions at LHC. In particular, we will focus on the events in the SciFi system of the detector, which consists of five scintillating fibre stations. Each station consists of two planes oriented in the x and y directions, thus providing spatial information in the two coordinates. The stations are alternated with Emulsion Cloud Chambers walls, and together they represent the tracking system of the detector. For the analysis of the simulated data, sndsw will be used (https://github.com/SND-LHC/sndsw).
 
 <img width="699" height="394" alt="layout" src="https://github.com/user-attachments/assets/00667ad3-056f-4600-807f-31729420a492" />
 
@@ -32,6 +32,12 @@ As an example, the plot below shows the distribution of the starting station of 
 
 ### Data preparation and Dataset exploration
 In order to be used in the Random Forest Classifier, data must be converted in a .csv format. Looping over the selected events as it was done previously, the data.py file writes the starting station of each event (target) and the features mentioned above as columns and stores them inside the data.csv file. Each row of the file corresponds to a muon event.
+
+While the target classes were generated as described in the previous section, the features were generated as follows:
+  - Number of hits per station: it is computed extracting the Station ID (numbered from 0 to 4) and counting the hits for each station;
+  - QDC/hit per station: it is the signal recorded by a SiPM divided by the number of hits in each station (if the station contains at least a hit);
+  - Horizontal shower width L_x per station: for each hit in a vertical plane, it is the difference between the maximum and minimum horizontal hit coordinates measured using the function GetSiPMPosition, which returns the 3D coordinates of the sensitive volume that registered the hit;
+  - Vertical shower width L_y per station: same as L_x, but considering the hits in the horizontal plane to measure the vertical hit coordinates.
 
 In the plots.ipynb notebook we explore the characteristics of the dataset. After checking the most important informations, such as shape, data types and missing values, we can also plot the distributions for each column and the relationship between the features via a correlation matrix.
 
