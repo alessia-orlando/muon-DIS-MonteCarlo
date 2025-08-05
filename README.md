@@ -41,7 +41,7 @@ While the target classes were generated as described in the previous section, th
 
 For semplicity, all the features were generated first independently in the x and y planes. For the number of hits and the QDC/hit the two components were then summed.
 
-The generated target and features are stored in dictionaries and appended as columns.
+The generated target and features are stored in dictionaries and appended as columns in the CSV file.
 
 In the plots.ipynb notebook we explore the characteristics of the dataset. After checking the most important informations, such as shape, data types and missing values, we can also plot the distributions for each column and the relationship between the features via a correlation matrix. The distribution of the classes of the dataset already shows the predominance of the -1 class; the problem will be addressed in more detail in the classification of the events. 
 
