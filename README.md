@@ -64,7 +64,7 @@ In the random_forest.ipynb notebook we preprocess the data, defining the feature
 The model reports a good overall performance, with an accuracy of 90.4%. However, precision and recall for minority classes are lower than the ones for the predominant class -1 and they are easily misclassified as the majority or neighbouring classes, as shown in the Confusion Matrix. This is a direct consequence of the class imbalance of the dataset, since the training data do not represent completely the minority classes. This imbalance could be mitigated using class_weight='balanced' in the model, which assignes weights inversely proportional to the frequency. However, this is not the case, since the small amount of data may lead to overfitting the noise and getting less precision. As an example, these are the results obtained assigning the weights:
 
 Accuracy:  0.8932584269662921 <br>
-Classification Report:
+Classification Report: <br>
               precision    recall  f1-score   support
 
           -1       0.94      0.96      0.95       133
