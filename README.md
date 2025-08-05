@@ -33,7 +33,6 @@ As an example, the plot below shows the distribution of the starting station of 
 ### Data preparation and Dataset exploration
 In order to be used in the Random Forest Classifier, data must be converted in a .csv format. Looping over the selected events as it was done previously, the data.py file writes the starting station of each event (target) and the features mentioned above as columns and stores them inside the data.csv file. Each row of the file corresponds to a muon event.
 
-
 In the plots.ipynb notebook we explore the characteristics of the dataset. After checking the most important informations, such as shape, data types and missing values, we can also plot the distributions for each column and the relationship between the features via a correlation matrix.
 
 ## Random Forest Classifier
@@ -47,7 +46,7 @@ The classifier provides:
 - `.fit(X_train, y_train)` to train the model on the data. It builds all the decision trees using the features and the target;
 - `.predict(X_test)` to make predictions using the trained model. It passes each input sample down every tree in the forest and uses a majority vote to assign a prediction.
 
-At the end, starting from the features, the model will be able to predict where the muon interaction takes place. In this case, the accuracy of the predictions is about 88%. 
+At the end, starting from the features, the model will be able to predict where the muon interaction takes place. In this case, the overall accuracy of the predictions is about 90%; while this may seem a good result, looking at the precision and recall of each class, it is clear that they are higher for the predominant class -1, meaning that the other classes are easily misclassified. This is a consequence of the lack of class imbalance; this problem may be solved improving the MonteCarlo simulation and using a larger dataset. 
 
 In the random_forest.ipynb notebook we preprocess the data, defining the feature columns X and the target column y, and split it into training and test sets. Using the scikit-learn class RandomizedSearchCV, we can find the best hyperparameters for the model within a given range and fit the best model to our data.
 
