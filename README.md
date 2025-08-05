@@ -39,7 +39,7 @@ While the target classes were generated as described in the previous section, th
   - Horizontal shower width L_x per station: for each hit in a vertical plane, it is the difference between the maximum and minimum horizontal hit coordinates measured using the function GetSiPMPosition, which returns the 3D coordinates of the sensitive volume that registered the hit;
   - Vertical shower width L_y per station: same as L_x, but considering the hits in the horizontal plane to measure the vertical hit coordinates.
 
-For semplicity, all the features were generated first independently in the x and y planes. For the number of hits and the QDC/hit the two components were then summed.
+For simplicity, all the features were generated first independently in the x and y planes. For the number of hits and the QDC/hit the two components were then summed.
 
 The generated target and features are stored in dictionaries and appended as columns in the CSV file.
 
