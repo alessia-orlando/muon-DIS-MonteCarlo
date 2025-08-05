@@ -26,12 +26,13 @@ The features of the digitized data which will be used to predict the starting st
 - Horizontal shower width L_x per station;
 - Vertical shower width L_y per station.
 
-As an example, the plot below shows the distribution of the starting station of the muon tracks.
+As an example, the plot below shows the distribution of the starting station of the muon tracks. Out of the 888 events having at least one hit in the SciFi system, only 224 record the first muon interaction in one of the stations; this means that the majority of the hits in the system comes from showers initiated in the veto system, placed in front of the first SciFi station, or, in some rare cases, from showers starting in the first planes of the muon system of the detector, behind the last SciFi station.
 
 <img width="995" height="602" alt="Schermata del 2025-07-25 20-03-59" src="https://github.com/user-attachments/assets/e7b07fdf-83df-43f0-a346-456a81d35472" />
 
 ### Data preparation and Dataset exploration
-In order to be used in the Random Forest Classifier, data must be converted in a .csv format. Looping over the selected events as it was done previously, the data.py file writes the starting station of each event (target) and the features mentioned above as columns and stores them inside the data.csv file.
+In order to be used in the Random Forest Classifier, data must be converted in a .csv format. Looping over the selected events as it was done previously, the data.py file writes the starting station of each event (target) and the features mentioned above as columns and stores them inside the data.csv file. Each row of the file corresponds to a muon event.
+
 
 In the plots.ipynb notebook we explore the characteristics of the dataset. After checking the most important informations, such as shape, data types and missing values, we can also plot the distributions for each column and the relationship between the features via a correlation matrix.
 
