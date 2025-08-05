@@ -56,9 +56,34 @@ The classifier provides:
 - `.fit(X_train, y_train)` to train the model on the data. It builds all the decision trees using the features and the target;
 - `.predict(X_test)` to make predictions using the trained model. It passes each input sample down every tree in the forest and uses a majority vote to assign a prediction.
 
-At the end, starting from the features, the model will be able to predict where the muon interaction takes place. In this case, the overall accuracy of the predictions is about 90%; while this may seem a good result, looking at the precision and recall of each class, it is clear that they are higher for the predominant class -1, meaning that the other classes are easily misclassified. This is a consequence of the lack of class imbalance; this problem may be solved improving the MonteCarlo simulation and using a larger dataset. 
+At the end, starting from the features, the model will be able to predict where the muon interaction takes place. The results are discussed in the next section. 
 
 In the random_forest.ipynb notebook we preprocess the data, defining the feature columns X and the target column y, and split it into training and test sets. Using the scikit-learn class RandomizedSearchCV, we can find the best hyperparameters for the model within a given range and fit the best model to our data.
+
+## Conclusions
+The model reports a good overall performance, with an accuracy of 90.4%. However, precision and recall for minority classes are lower than the ones for the predominant class -1 and they are easily misclassified as the majority or neighbouring classes, as shown in the Confusion Matrix. This is a direct consequence of the class imbalance of the dataset, since the training data do not represent completely the minority classes. This imbalance could be mitigated using class_weight='balanced' in the model, which assignes weights inversely proportional to the frequency. However, this is not the case, since the small amount of data may lead to overfitting the noise and getting less precision. As an example, these are the results obtained assigning the weights:
+
+Accuracy:  0.8932584269662921 <br>
+Classification Report:
+              precision    recall  f1-score   support
+
+          -1       0.94      0.96      0.95       133
+           1       0.90      0.82      0.86        11
+           2       0.56      0.71      0.62         7
+           3       0.67      0.89      0.76         9
+           4       0.75      0.43      0.55         7
+           5       0.86      0.55      0.67        11
+
+    accuracy                           0.89       178
+   macro avg       0.78      0.73      0.73       178
+weighted avg       0.90      0.89      0.89       178
+
+Performance metrics for the minority classes are clearly lower than the ones for the predominant class -1. <br>
+
+To assess the stability of the model, also differnet values of the number of cross-validation folds cv were used, although the standard deviation of the scores increases as cv increases. As an example, for cv=6 the standard deviation increases from 0.016 to 0.029, i.e. validation scores fluctuates more among runs. This is another consequence of the size and lack of balance of the dataset, since increasing the number of splits also decreases the size training set, leading to a further underrepresentation of minority classes. 
+
+
+An improvement of the MonteCarlo simulation and a wider dataset, eventually combined with a more powerful Classifier more suited to the new data, may be needed to obtain a better classification performance for all classes.
 
 ## Run instructions
 ### Setup, data exploration and preparation (on lxplus)
