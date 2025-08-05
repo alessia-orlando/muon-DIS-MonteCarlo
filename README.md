@@ -39,7 +39,11 @@ While the target classes were generated as described in the previous section, th
   - Horizontal shower width L_x per station: for each hit in a vertical plane, it is the difference between the maximum and minimum horizontal hit coordinates measured using the function GetSiPMPosition, which returns the 3D coordinates of the sensitive volume that registered the hit;
   - Vertical shower width L_y per station: same as L_x, but considering the hits in the horizontal plane to measure the vertical hit coordinates.
 
-In the plots.ipynb notebook we explore the characteristics of the dataset. After checking the most important informations, such as shape, data types and missing values, we can also plot the distributions for each column and the relationship between the features via a correlation matrix.
+For semplicity, all the features were generated first independently in the x and y planes. For the number of hits and the QDC/hit the two components were then summed.
+
+The generated target and features are stored in dictionaries and appended as columns.
+
+In the plots.ipynb notebook we explore the characteristics of the dataset. After checking the most important informations, such as shape, data types and missing values, we can also plot the distributions for each column and the relationship between the features via a correlation matrix. The distribution of the classes of the dataset already shows the predominance of the -1 class; the problem will be addressed in more detail in the classification of the events. 
 
 ## Random Forest Classifier
 After preparing and checking the data, it is possible to classify the events and predict if the muon track started in the SciFi target and, if so, in which station. For this we use Random Forest, i.e. a machine learning model that builds multiple decision trees, trains them on a random subset of the data, and combines their predictions. To build and train the Random Forest in random_forest.ipynb, we use the `RandomForestClassifier` from the scikit-learn library.
