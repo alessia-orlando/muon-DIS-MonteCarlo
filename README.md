@@ -80,7 +80,7 @@ Performance metrics for the minority classes are clearly lower than the ones for
 To assess the stability of the model, also differnet values of the number of cross-validation folds cv were used, although the standard deviation of the scores increases as cv increases. As an example, for cv=6 the standard deviation increases from 0.016 to 0.029, i.e. validation scores fluctuates more among runs. This is another consequence of the size and lack of balance of the dataset, since increasing the number of splits also decreases the size training set, leading to a further underrepresentation of minority classes. 
 
 
-An improvement of the MonteCarlo simulation and a wider dataset, eventually combined with a more powerful Classifier more suited to the new data, may be needed to obtain a better classification performance for all classes.
+An improvement of the MonteCarlo simulation and a larger dataset, eventually combined with a more powerful Classifier more suited to the new data, may be needed to obtain a better classification performance for all classes.
 
 ## Run instructions
 ### Setup, data exploration and preparation (on lxplus)
